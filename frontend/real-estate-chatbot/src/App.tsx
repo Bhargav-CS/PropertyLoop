@@ -36,7 +36,7 @@ function App() {
       };
 
       // Use relative path for the API endpoint
-      const res = await axios.post("http://localhost:8000/chat", payload);
+      const res = await axios.post("/chat", payload);
 
       // Store session ID if it's a new session
       if (!sessionId && res.data.session_id) {
