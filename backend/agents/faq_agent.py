@@ -53,11 +53,11 @@ You are a helpful assistant answering tenancy-related questions based on the fol
 {query}
 
 Responsibilities:
+- Ues the [FAQ CONTENT] to answer user queries
 - Answer frequently asked questions related to tenancy laws, agreements, landlord/tenant responsibilities, and rental processes.
 - Provide location-specific guidance if the user's city or country is provided.
 - If the answer is not directly available in the FAQ, try to answer to the best of your ability.
-- If you can’t find an exact answer, say "I’m not sure" or "I don’t know".
-- If the question is not related to tenancy, say "I can’t help with that. The issue is not listed in the FAQ".
+- If you can’t find an exact answer, say "I don’t know since it is not a FAQ please contact help@propertyloop.com".
 - Handle greetings and farewells politely.
 """
     response = llm.invoke(prompt)
