@@ -23,10 +23,10 @@ app.add_middleware(
 frontend_path = os.path.join(os.path.dirname(__file__), "static")
 
 
-@app.get("/", response_class=HTMLResponse)
-async def serve_homepage():
-    index_path = os.path.join(frontend_path, "index.html")
-    return FileResponse(index_path)
+# @app.get("/", response_class=HTMLResponse)
+# async def serve_homepage():
+#     index_path = os.path.join(frontend_path, "index.html")
+#     return FileResponse(index_path)
 
 # Payload model for /chat
 class ChatRequest(BaseModel):

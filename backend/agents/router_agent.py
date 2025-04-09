@@ -35,11 +35,11 @@ Respond with only one word: 'faq' or 'image'."""
         if decision == "faq":
             print(f"[ROUTING] FAQ agent selected for text: {text}")
             return run_faq_agent(text)
-            # return "Routing to FAQ agent."
+            
         elif decision == "image":
             print(f"[ROUTING] Vision agent selected for image.")
             return run_vision_agent(image_base64, text)
-            # return "Routing to Vision agent."
+            
         else:
             return f"Unable to route request. Got decision: {decision}"
 
