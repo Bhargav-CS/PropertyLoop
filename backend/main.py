@@ -21,19 +21,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Serve the dist folder statically at /static
-dist_folder_path = os.path.join(os.path.dirname(__file__), "dist")
-if os.path.exists(dist_folder_path):
-    app.mount("/home", StaticFiles(directory=dist_folder_path, html=True), name="static")
-else:
-    print(f"[WARNING] The 'dist' folder does not exist at {dist_folder_path}")
+app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
+
+@app.get("/{full_path:path}")
+async def serve_react_app(full_path: str):
+    """
+    Serve index.html for all frontend routes to allow React routing.
+    """
+    index_path = os.path.join("dist", "index.html")
+    if os.path.exists(index_path):
+        return FileResponse(index_path)
+    return {"error": "index.html not found"}
 
 @app.get("/")
-async def root():
-    """
-    Redirects to the static HTML page.
-    """
-    return RedirectResponse(url="/home")
+def root():
+    return {"message": "Property Loop API is running"}
 
 # In-memory storage for chat history
 chat_histories = {}
