@@ -9,6 +9,7 @@ import uuid  # Import for generating unique session IDs
 from agents.router_agent import routeragent
 from agents.faq_agent import run_faq_agent
 from agents.vision_agent import run_vision_agent
+import uvicorn
 
 app = FastAPI()
 
@@ -83,3 +84,5 @@ async def end_session(req: ChatRequest):
     return {"error": "Session ID not found."}
 
 
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
