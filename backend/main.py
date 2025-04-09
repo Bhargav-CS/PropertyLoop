@@ -55,4 +55,15 @@ async def chat(req: ChatRequest):
     except Exception as e:
         return {"error": str(e), "session_id": session_id}
 
+@app.post("/end_session")
+async def end_session(req: ChatRequest):
+    """
+    Ends the current chat session by clearing its history.
+    """
+    session_id = req.session_id
+    if session_id and session_id in chat_histories:
+        del chat_histories[session_id]
+        return {"message": "Session ended successfully."}
+    return {"error": "Session ID not found."}
+
 

@@ -53,7 +53,11 @@ You are a helpful assistant answering questions based on the following FAQ conte
 [User Question]
 {query}
 
-If the answer is not directly available in the FAQ, say "Sorry, I couldn’t find an exact answer in the FAQ."
+If the answer is not directly available in the FAQ,
+try to answer with the best of you ability.
+If you can’t find an exact answer, say "I’m not sure" or "I don’t know".
+If the question is not related to the FAQ content, say "I can’t help with that. The issue is not listed in the FAQ".
+handle the greetings and farewells politely.
 """
     response = llm.invoke(prompt)
     return response.content

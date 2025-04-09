@@ -79,9 +79,15 @@ function App() {
     reader.readAsDataURL(file);
   };
 
+  const handleNewSession = () => {
+    sessionId = null;
+    localStorage.removeItem("session_id");
+    setMessages([]);
+  };
+
   return (
     <div className="App">
-      <h1>🧠 Vision Chatbot</h1>
+      <h1>Property Loop</h1>
 
       <div className="chat-window">
         {messages.map((msg) => (
@@ -99,6 +105,7 @@ function App() {
         />
         <input type="file" accept="image/*" onChange={handleFileUpload} />
         <button onClick={handleSend}>Send</button>
+        <button onClick={handleNewSession}>New Session</button>
       </div>
     </div>
   );
