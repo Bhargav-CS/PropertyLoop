@@ -5,3 +5,4 @@ pydantic
 Pillow
 langchain-google-genai
 google-genai
+langchain
