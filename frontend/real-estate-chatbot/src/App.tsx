@@ -5,6 +5,8 @@ import { Message } from "./types/Message";
 import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 
+let sessionId = localStorage.getItem("session_id");
+
 function App() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [text, setText] = useState("");
@@ -25,10 +27,19 @@ function App() {
     setMessages((prev) => [...prev, userMessage]);
 
     try {
-      const res = await axios.post("http://localhost:8000/chat", {
-        text,
-        image,
-      });
+      const payload = {
+        text: text,
+        image: image || null,
+        session_id: sessionId || null, // Include session ID if available
+      };
+
+      const res = await axios.post("http://localhost:8000/chat", payload);
+
+      // Store session ID if it's a new session
+      if (!sessionId && res.data.session_id) {
+        sessionId = res.data.session_id;
+        localStorage.setItem("session_id", sessionId || "");
+      }
 
       const data = res.data;
 

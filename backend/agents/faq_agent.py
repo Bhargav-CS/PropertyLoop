@@ -27,12 +27,28 @@ llm = ChatGoogleGenerativeAI(
 )
 
 # --- Exposed function ---
-def run_faq_agent(query: str):
+def run_faq_agent(query: str, chat_history: list):
+    """
+    Handles FAQ queries with conversational context.
+
+    Args:
+        query (str): User's query.
+        chat_history (list): List of previous exchanges in the conversation.
+
+    Returns:
+        str: The agent's response.
+    """
+    # Format chat history
+    history = "\n".join([f"User: {q}\nAgent: {a}" for q, a in chat_history])
+
     prompt = f"""
 You are a helpful assistant answering questions based on the following FAQ content.
 
 [FAQ CONTENT]
 {faq_data}
+
+[Conversation History]
+{history}
 
 [User Question]
 {query}
