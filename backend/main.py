@@ -32,10 +32,11 @@ class ChatRequest(BaseModel):
     text: Optional[str] = None
     image: Optional[str] = None  # base64 string (we’ll decode later)
     session_id: Optional[str] = None  # Optional, generated if not provided
+    agent: Optional[str] = None  # Optional, specifies the agent to use
 
 @app.post("/chat")
 async def chat(req: ChatRequest):
-    print(f"[INPUT] Text: {req.text}, Image: {'Provided' if req.image else 'Not Provided'}")
+    print(f"[INPUT] Text: {req.text}, Image: {'Provided' if req.image else 'Not Provided'}, Agent: {req.agent}")
 
     # Generate a session ID if not provided
     session_id = req.session_id or str(uuid.uuid4())
@@ -45,8 +46,13 @@ async def chat(req: ChatRequest):
     chat_history = chat_histories[session_id]
 
     try:
-        # Use the router agent to decide which agent to use
-        response = routeragent.route(query=req.text or "", image_base64=req.image, chat_history=chat_history)
+        # Route to the specified agent or use the router agent
+        if req.agent == "faq":
+            response = run_faq_agent(query=req.text or "", chat_history=chat_history)
+        elif req.agent == "vision":
+            response = run_vision_agent(image_base64=req.image, text=req.text or "", chat_history=chat_history)
+        else:
+            response = routeragent.route(query=req.text or "", image_base64=req.image, chat_history=chat_history)
 
         # Update chat history
         chat_history.append((req.text or "[Image Provided]", response))

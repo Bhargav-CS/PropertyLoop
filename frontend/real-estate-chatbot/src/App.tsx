@@ -12,6 +12,7 @@ function App() {
   const [text, setText] = useState("");
   const [image, setImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [selectedAgent, setSelectedAgent] = useState<string>("auto"); // New state for agent selection
 
   const handleSend = async () => {
     if (!text && !image) return;
@@ -31,6 +32,7 @@ function App() {
         text: text,
         image: image || null,
         session_id: sessionId || null, // Include session ID if available
+        agent: selectedAgent === "auto" ? null : selectedAgent, // Include agent if selected
       };
 
       const res = await axios.post("http://localhost:8000/chat", payload);
@@ -97,13 +99,23 @@ function App() {
       </div>
 
       <div className="input-area">
+        <select
+          value={selectedAgent}
+          onChange={(e) => setSelectedAgent(e.target.value)}
+        >
+          <option value="auto">Auto</option>
+          <option value="faq">FAQ Agent</option>
+          <option value="vision">Vision Agent</option>
+        </select>
         <input
           type="text"
           placeholder="Ask something..."
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
-        <input type="file" accept="image/*" onChange={handleFileUpload} />
+        {["auto", "vision"].includes(selectedAgent) && (
+          <input type="file" accept="image/*" onChange={handleFileUpload} />
+        )}
         <button onClick={handleSend}>Send</button>
         <button onClick={handleNewSession}>New Session</button>
       </div>
