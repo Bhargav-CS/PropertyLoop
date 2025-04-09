@@ -1,5 +1,7 @@
 # PropertyLoop
 
+[Live Demo](https://propertyloop.onrender.com/)
+
 PropertyLoop is a real estate chatbot application designed to assist users with tenancy-related queries, property issue detection, and troubleshooting. It features a frontend built with React and TypeScript, and a backend powered by FastAPI and Google Generative AI models.
 
 ---
