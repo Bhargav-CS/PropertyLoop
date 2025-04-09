@@ -35,7 +35,8 @@ function App() {
         agent: selectedAgent === "auto" ? null : selectedAgent, // Include agent if selected
       };
 
-      const res = await axios.post("http://localhost:8000/chat", payload);
+      // Use relative path for the API endpoint
+      const res = await axios.post("/chat", payload);
 
       // Store session ID if it's a new session
       if (!sessionId && res.data.session_id) {

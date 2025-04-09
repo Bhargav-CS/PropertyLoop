@@ -1,6 +1,6 @@
 from fastapi import FastAPI, UploadFile, Form, Request
-from fastapi.responses import FileResponse, HTMLResponse
-from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse  # Import RedirectResponse
+from fastapi.staticfiles import StaticFiles  # Import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional
@@ -21,8 +21,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Serve frontend build
-frontend_path = os.path.join(os.path.dirname(__file__), "static")
+# Serve the dist folder statically
+app.mount("/home", StaticFiles(directory="dist", html=True), name="static")
+
 
 # In-memory storage for chat history
 chat_histories = {}
