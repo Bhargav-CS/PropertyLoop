@@ -4,7 +4,6 @@ from fastapi.staticfiles import StaticFiles  # Import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional
-import shutil
 import os
 import uuid  # Import for generating unique session IDs
 from agents.router_agent import routeragent
@@ -21,9 +20,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Serve the dist folder statically
-app.mount("/home", StaticFiles(directory="dist", html=True), name="static")
+# Serve the dist folder statically at /static
+dist_folder_path = os.path.join(os.path.dirname(__file__), "dist")
+if os.path.exists(dist_folder_path):
+    app.mount("/home", StaticFiles(directory=dist_folder_path, html=True), name="static")
+else:
+    print(f"[WARNING] The 'dist' folder does not exist at {dist_folder_path}")
 
+@app.get("/")
+async def root():
+    """
+    Redirects to the static HTML page.
+    """
+    return RedirectResponse(url="/home")
 
 # In-memory storage for chat history
 chat_histories = {}
