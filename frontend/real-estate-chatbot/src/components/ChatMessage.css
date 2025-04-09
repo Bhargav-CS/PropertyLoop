@@ -1,25 +1,33 @@
 .chat-bubble {
-    background-color: #e0f7fa;
-    padding: 10px;
-    border-radius: 12px;
-    margin-bottom: 10px;
-    max-width: 75%;
-    word-wrap: break-word;
-  }
-  
-  .chat-bubble.user {
-    align-self: flex-end;
-    background-color: #070606;
-  }
-  
-  .chat-bubble.bot {
-    align-self: flex-start;
-    background-color: #070606;
-  }
-  
-  .chat-image {
-    max-width: 250px;
-    border-radius: 8px;
-    margin-bottom: 6px;
-  }
-  
+  padding: 12px;
+  border-radius: 25px;
+  margin-bottom: 10px;
+  max-width: 75%;
+  word-wrap: break-word;
+  font-size: 14px;
+  line-height: 1.5;
+  display: inline-block;
+}
+
+.chat-bubble.user {
+  align-self: flex-end;
+  background-color: #333; /* Blue for user messages */
+  color: white;
+  margin-left: auto; /* Push user messages to the right */
+}
+
+.chat-bubble.bot {
+  align-self: flex-start;
+  background-color: #333; /* Dark gray for bot messages */
+  color: #e0e0e0; /* Light text for bot messages */
+  margin-right: auto; /* Push bot messages to the left */
+}
+
+.chat-image {
+  max-width: 200px;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  display: block;
+  border: 1px solid #444; /* Subtle border for images */
+  padding: 4px; /* Add padding around the image */
+}

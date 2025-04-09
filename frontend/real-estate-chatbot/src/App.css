@@ -1,22 +1,87 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #121212; /* Dark background */
+  color: #e0e0e0; /* Light text color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+}
+
 .App {
-  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 90vh; /* Slightly smaller than full height */
+  width: 100%;
+  max-width: 800px; /* Wider for a ChatGPT-like layout */
   margin: 0 auto;
   padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  background-color: #1e1e1e; /* Slightly lighter dark background */
+  border-radius: 12px;
+  overflow: hidden; /* Prevent content overflow */
+}
+
+h1 {
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .chat-window {
   display: flex;
   flex-direction: column;
-  height: 70vh;
+  flex-grow: 1; /* Allow chat window to grow */
+  height: auto;
+  width: 100%;
   overflow-y: auto;
   margin-bottom: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid #333;
   padding: 10px;
-  background: #fafafa;
+  background: #2a2a2a; /* Darker chat window background */
+  border-radius: 8px;
 }
 
 .input-area {
   display: flex;
-  flex-direction: column;
+  flex-direction: row; /* Align input and button horizontally */
   gap: 10px;
+  width: 100%;
+}
+
+select,
+input[type="text"],
+button {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+select {
+  background-color: #333;
+  color: #e0e0e0;
+}
+
+input[type="text"] {
+  flex-grow: 1; /* Input takes up remaining space */
+  background-color: #333;
+  color: #e0e0e0;
+}
+
+button {
+  background-color: #00050a;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  flex-shrink: 0; /* Prevent button from shrinking */
+}
+
+button:hover {
+  background-color: #1d242c;
 }

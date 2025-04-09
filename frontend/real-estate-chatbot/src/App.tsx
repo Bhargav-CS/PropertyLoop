@@ -95,7 +95,11 @@ function App() {
         {messages.map((msg) => (
           <ChatMessage key={msg.id} message={msg} />
         ))}
-        {loading && <div className="chat-bubble bot">🤖 Typing...</div>}
+        {loading && (
+          <div className="chat-bubble bot">
+            🤖 Typing... ({selectedAgent === "auto" ? "Routing Agent" : selectedAgent === "faq" ? "FAQ Agent" : "Vision Agent"})
+          </div>
+        )}
       </div>
 
       <div className="input-area">
@@ -112,6 +116,11 @@ function App() {
           placeholder="Ask something..."
           value={text}
           onChange={(e) => setText(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSend();
+            }
+          }}
         />
         {["auto", "vision"].includes(selectedAgent) && (
           <input type="file" accept="image/*" onChange={handleFileUpload} />
