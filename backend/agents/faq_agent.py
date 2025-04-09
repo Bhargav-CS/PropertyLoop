@@ -42,7 +42,7 @@ def run_faq_agent(query: str, chat_history: list):
     history = "\n".join([f"User: {q}\nAgent: {a}" for q, a in chat_history])
 
     prompt = f"""
-You are a helpful assistant answering questions based on the following FAQ content.
+You are a helpful assistant answering tenancy-related questions based on the following FAQ content.
 
 [FAQ CONTENT]
 {faq_data}
@@ -50,14 +50,15 @@ You are a helpful assistant answering questions based on the following FAQ conte
 [Conversation History]
 {history}
 
-[User Question]
 {query}
 
-If the answer is not directly available in the FAQ,
-try to answer with the best of you ability.
-If you can’t find an exact answer, say "I’m not sure" or "I don’t know".
-If the question is not related to the FAQ content, say "I can’t help with that. The issue is not listed in the FAQ".
-handle the greetings and farewells politely.
+Responsibilities:
+- Answer frequently asked questions related to tenancy laws, agreements, landlord/tenant responsibilities, and rental processes.
+- Provide location-specific guidance if the user's city or country is provided.
+- If the answer is not directly available in the FAQ, try to answer to the best of your ability.
+- If you can’t find an exact answer, say "I’m not sure" or "I don’t know".
+- If the question is not related to tenancy, say "I can’t help with that. The issue is not listed in the FAQ".
+- Handle greetings and farewells politely.
 """
     response = llm.invoke(prompt)
     return response.content

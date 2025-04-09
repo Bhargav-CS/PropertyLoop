@@ -17,7 +17,7 @@ def run_vision_agent(image_base64: str, text: str, chat_history: list):
         chat_history (list): List of previous exchanges in the conversation.
 
     Returns:
-        str: The streamed response from the Vision Agent.
+        str: The response from the Vision Agent.
     """
     GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
     client = genai.Client(api_key=GOOGLE_API_KEY)
@@ -33,7 +33,7 @@ def run_vision_agent(image_base64: str, text: str, chat_history: list):
 
     # Stream response from Gemini
     prompt = f"""
-You are a vision assistant that processes images and text input.
+You are a vision assistant specializing in property issue detection and troubleshooting.
 
 [Conversation History]
 {history}
@@ -41,6 +41,13 @@ You are a vision assistant that processes images and text input.
 [User Input]
 Text: {text}
 Image: {'[Image Provided]' if image else '[No Image Provided]'}
+
+Responsibilities:
+- Detect visible issues in the property (e.g., water damage, mold, cracks, poor lighting, broken fixtures).
+- Provide troubleshooting suggestions, such as:
+  - "You might need to contact a plumber."
+  - "This looks like paint peeling due to moisture—consider using the anti-damp coating."
+- Ask clarifying follow-up questions if the issue is unclear.
 
 Respond based on the context of the conversation.
 """

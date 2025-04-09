@@ -25,7 +25,9 @@ class RouterAgent:
 [User Query]
 {query}
 
-Respond with only one word: 'faq' or 'vision'. If the query is related to a previous image but no new image is provided, route to 'vision'."""
+Respond with only one word: 'faq' or 'vision'. If the query is related to a previous image but no new image is provided, route to 'vision'.
+If you are unsure about the routing decision, say 'unsure'.
+"""
         )
 
     def route(self, query: str, image_base64: str, chat_history: list):
